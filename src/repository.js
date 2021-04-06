@@ -12,6 +12,9 @@ class Repository {
     this.items.push(item);
     return item.id;
   }
+  getById(id) {
+    return this.items.find((item) => item.id === id);
+  }
 }
 
 export { Repository };

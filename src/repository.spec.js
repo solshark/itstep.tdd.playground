@@ -17,4 +17,13 @@ describe("Repository", () => {
       expect(repo.items.find((i) => i.id === id)).toBeTruthy();
     });
   });
+
+  describe("method getById(:id)", () => {
+    it("should get item by id", () => {
+      expect.assertions(1);
+      const TITLE = "New item title";
+      const id = repo.add(TITLE);
+      expect(repo.getById(id).title).toBe(TITLE);
+    });
+  });
 });
