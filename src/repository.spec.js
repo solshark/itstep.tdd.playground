@@ -26,4 +26,17 @@ describe("Repository", () => {
       expect(repo.getById(id).title).toBe(TITLE);
     });
   });
+
+  describe("method removeById(:id)", () => {
+    it("should remove item by id", () => {
+      expect.assertions(2);
+      const ITEM1 = "item 1";
+      const ITEM2 = "item 2";
+      const id1 = repo.add(ITEM1);
+      const id2 = repo.add(ITEM2);
+      repo.removeById(id1);
+      expect(repo.items.length).toBe(1);
+      repo.items.forEach((item) => expect(item.title).not.toBe(ITEM1));
+    });
+  });
 });
