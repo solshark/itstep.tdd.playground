@@ -15,6 +15,7 @@ class Repository {
       title: title,
     };
     this.#items.push(item);
+    this.save();
     return item.id;
   }
   getById(id) {
@@ -22,6 +23,13 @@ class Repository {
   }
   removeById(id) {
     this.#items = this.#items.filter((item) => item.id !== id);
+    this.save();
+  }
+  save() {
+    localStorage.setItem("items", JSON.stringify(this.#items));
+  }
+  restore() {
+    this.#items = JSON.parse(localStorage.getItem("items"));
   }
 }
 

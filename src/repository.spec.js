@@ -16,6 +16,14 @@ describe("Repository", () => {
       expect(id).not.toBeFalsy();
       expect(repo.items.find((i) => i.id === id)).toBeTruthy();
     });
+    it("should persist data", () => {
+      expect.assertions(1);
+      const r = new Repository();
+      const spy = jest.spyOn(r, "save");
+      const TITLE = "New item to buy";
+      r.add(TITLE);
+      expect(spy).toHaveBeenCalled();
+    });
   });
 
   describe("method getById(:id)", () => {
