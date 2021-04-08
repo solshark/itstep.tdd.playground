@@ -1,4 +1,13 @@
 import { Repository } from "./repository";
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  clear: jest.fn(),
+};
+
+beforeAll(() => {
+  global.Storage.prototype.setItem = localStorageMock.setItem;
+});
 describe("Repository", () => {
   let repo;
   beforeEach(() => {
@@ -23,6 +32,19 @@ describe("Repository", () => {
       const TITLE = "New item to buy";
       r.add(TITLE);
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe("method save()", () => {
+    it("should persist proper dataset", () => {
+      expect.assertions(1);
+
+      const TITLE = "New item to buy";
+      const id = repo.add(TITLE);
+      expect(localStorage.setItem).toBeCalledWith(
+        "items",
+        JSON.stringify([{ id, title: TITLE }])
+      );
     });
   });
 
