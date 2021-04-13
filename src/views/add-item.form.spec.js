@@ -7,10 +7,10 @@ beforeEach(() => {
   document.body.append(form.dom);
 });
 describe("AddItemForm", () => {
-  it("should create", () => {
+  it("should match snaphot", () => {
     expect.assertions(1);
 
-    expect(form).toBeTruthy();
+    expect(form.dom).toMatchSnapshot();
   });
 
   describe("Layout", () => {
@@ -37,6 +37,11 @@ describe("AddItemForm", () => {
     });
   });
   describe("btnAdd", () => {
+    it("should be disabled initially", () => {
+      expect.assertions(1);
+      const button = document.getElementById("btnAdd");
+      expect(button.disabled).toBe(true);
+    });
     it("should call onItemAdded() method if clicked", () => {
       expect.assertions(1);
       document.body.innerHTML = "";
@@ -49,6 +54,7 @@ describe("AddItemForm", () => {
       const f = new AddItemForm();
       document.body.append(f.dom);
       const button = document.getElementById("btnAdd");
+      button.disabled = false;
       button.click();
       expect(clickSpy).toBeCalled();
     });
